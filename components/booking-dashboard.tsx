@@ -16,8 +16,18 @@ import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Switch } from "@/components/ui/switch";
 import { Clock } from "lucide-react";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
+
+//TODO: Make validation (phone number, channels, message, date and time)
+//TODO: if one of the fields is empty, the booking button is inactive (disabled)
+//TODO: decomposition to components
+//TODO: try use form for each input
+
+const mobilePhonePattern = new RegExp(
+  "^(\\+996\\s?)?(22[0-9]|50[0-9]|55[0-9]|70[0-9]|75[0-9]|77[0-9]|880|990|995|996|997|998)\\s?\\d{3}\\s?\\d{3}$"
+);
 
 type CommunicationMethod = "email" | "sms" | "telegram" | "whatsapp";
 
@@ -33,11 +43,12 @@ const communicationOptions: {
   id: CommunicationMethod;
   label: string;
   price: number;
+  active: boolean;
 }[] = [
-  { id: "email", label: "Email", price: 1 },
-  { id: "sms", label: "SMS", price: 2 },
-  { id: "telegram", label: "Telegram", price: 1.5 },
-  { id: "whatsapp", label: "WhatsApp", price: 1.5 },
+  { id: "email", label: "Email", price: 1, active: true },
+  { id: "sms", label: "SMS", price: 2, active: false },
+  { id: "telegram", label: "Telegram", price: 1.5, active: false },
+  { id: "whatsapp", label: "WhatsApp", price: 1.5, active: false },
 ];
 
 const presetTimeSlots = ["09:00", "12:00", "15:00", "18:00", "20:00"];
@@ -46,8 +57,8 @@ export function BookingDashboard() {
   const [date, setDate] = useState<Date | undefined>(new Date());
   const [hours, setHours] = useState<string>("");
   const [minutes, setMinutes] = useState<string>("");
-  const [is24HourFormat, setIs24HourFormat] = useState(true);
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [isInvalidPhoneNumber, setIsInvalidPhoneNumber] = useState(false);
   const [communicationMethods, setCommunicationMethods] = useState<
     CommunicationMethod[]
   >([]);
@@ -89,12 +100,7 @@ export function BookingDashboard() {
 
   const formatTime = (h: string, m: string) => {
     if (!h || !m) return "";
-    const date = new Date(2000, 0, 1, parseInt(h), parseInt(m));
-    return date.toLocaleTimeString("en-US", {
-      hour: "numeric",
-      minute: "2-digit",
-      hour12: !is24HourFormat,
-    });
+    return `${h.padStart(2, "0")}:${m.padStart(2, "0")}`;
   };
 
   return (
@@ -114,13 +120,15 @@ export function BookingDashboard() {
                 mode="single"
                 selected={date}
                 onSelect={setDate}
+                disabled={(date) =>
+                  date < new Date(new Date().setHours(0, 0, 0, 0))
+                }
                 className="rounded-md border w-full h-full"
                 styles={{
                   months: { width: "100%" },
                   month: { width: "100%" },
                   caption: { width: "100%" },
                   caption_label: { width: "100%", textAlign: "center" },
-                  nav: { width: "100%" },
                   table: { width: "100%" },
                   head_row: { width: "100%" },
                   head_cell: { width: "14.28%", textAlign: "center" },
@@ -137,15 +145,7 @@ export function BookingDashboard() {
               />
             </div>
             <Card className="w-full lg:w-1/2">
-              <CardContent className="space-y-4 p-6">
-                <div className="flex items-center justify-between">
-                  <Label htmlFor="time-format">24-hour format</Label>
-                  <Switch
-                    id="time-format"
-                    checked={is24HourFormat}
-                    onCheckedChange={setIs24HourFormat}
-                  />
-                </div>
+              <CardContent className="p-6 space-y-4">
                 <div className="flex space-x-2">
                   <div className="w-1/2">
                     <Label htmlFor="hours">Hours</Label>
@@ -153,10 +153,10 @@ export function BookingDashboard() {
                       id="hours"
                       type="number"
                       min={0}
-                      max={is24HourFormat ? 23 : 12}
+                      max={23}
                       value={hours}
                       onChange={(e) => setHours(e.target.value)}
-                      placeholder={is24HourFormat ? "0-23" : "1-12"}
+                      placeholder="0-23"
                     />
                   </div>
                   <div className="w-1/2">
@@ -193,7 +193,7 @@ export function BookingDashboard() {
                         }
                       >
                         <Clock className="mr-2 h-4 w-4" />
-                        {is24HourFormat ? slot : formatTime(...slot.split(":"))}
+                        {slot}
                       </Button>
                     ))}
                   </div>
@@ -212,13 +212,33 @@ export function BookingDashboard() {
           <CardContent className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="phone">Phone Number</Label>
-              <Input
-                id="phone"
-                type="tel"
-                placeholder="Enter your phone number"
+
+              <PhoneInput
+                countryCodeEditable={false}
+                country={"kg"}
+                onlyCountries={["kg"]}
                 value={phoneNumber}
-                onChange={(e) => setPhoneNumber(e.target.value)}
+                onChange={(value) => setPhoneNumber(value)}
+                isValid={(value) => {
+                  setIsInvalidPhoneNumber(() => false);
+
+                  if (value.length < 12) {
+                    return true;
+                  }
+
+                  if (mobilePhonePattern.test("+" + value)) {
+                    return true;
+                  }
+
+                  setIsInvalidPhoneNumber(() => true);
+                  return false;
+                }}
               />
+              {isInvalidPhoneNumber && (
+                <Label className="text-xs text-red-700">
+                  {"Maybe that number doesn't exist. Please check again!"}
+                </Label>
+              )}
             </div>
             <div className="space-y-2">
               <Label>Communication Methods</Label>
@@ -231,8 +251,16 @@ export function BookingDashboard() {
                       onCheckedChange={() =>
                         handleCommunicationMethodChange(option.id)
                       }
+                      disabled={!option.active}
                     />
-                    <Label htmlFor={option.id} className="text-sm">
+                    <Label
+                      htmlFor={option.id}
+                      className={`text-sm ${
+                        !option.active
+                          ? "line-through text-muted-foreground"
+                          : ""
+                      }`}
+                    >
                       {option.label} (${option.price})
                     </Label>
                   </div>
