@@ -17,17 +17,12 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Clock } from "lucide-react";
-import PhoneInput from "react-phone-input-2";
-import "react-phone-input-2/lib/style.css";
+import { PhoneInput } from "./PhoneInput/phone-input";
 
 //TODO: Make validation (phone number, channels, message, date and time)
 //TODO: if one of the fields is empty, the booking button is inactive (disabled)
 //TODO: decomposition to components
 //TODO: try use form for each input
-
-const mobilePhonePattern = new RegExp(
-  "^(\\+996\\s?)?(22[0-9]|50[0-9]|55[0-9]|70[0-9]|75[0-9]|77[0-9]|880|990|995|996|997|998)\\s?\\d{3}\\s?\\d{3}$"
-);
 
 type CommunicationMethod = "email" | "sms" | "telegram" | "whatsapp";
 
@@ -58,7 +53,6 @@ export function BookingDashboard() {
   const [hours, setHours] = useState<string>("");
   const [minutes, setMinutes] = useState<string>("");
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [isInvalidPhoneNumber, setIsInvalidPhoneNumber] = useState(false);
   const [communicationMethods, setCommunicationMethods] = useState<
     CommunicationMethod[]
   >([]);
@@ -211,34 +205,7 @@ export function BookingDashboard() {
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="phone">Phone Number</Label>
-
-              <PhoneInput
-                countryCodeEditable={false}
-                country={"kg"}
-                onlyCountries={["kg"]}
-                value={phoneNumber}
-                onChange={(value) => setPhoneNumber(value)}
-                isValid={(value) => {
-                  setIsInvalidPhoneNumber(() => false);
-
-                  if (value.length < 12) {
-                    return true;
-                  }
-
-                  if (mobilePhonePattern.test("+" + value)) {
-                    return true;
-                  }
-
-                  setIsInvalidPhoneNumber(() => true);
-                  return false;
-                }}
-              />
-              {isInvalidPhoneNumber && (
-                <Label className="text-xs text-red-700">
-                  {"Maybe that number doesn't exist. Please check again!"}
-                </Label>
-              )}
+              <PhoneInput />
             </div>
             <div className="space-y-2">
               <Label>Communication Methods</Label>
