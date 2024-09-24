@@ -3,6 +3,13 @@ import { Button } from "@/components/ui/button";
 
 import { Mail, MessageSquare, Calendar, BarChart } from "lucide-react";
 import { ServiceConnectionRequest } from "@/components/landing";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "LMNEDATE - Streamline Your Communications",
+  description:
+    "Effortlessly manage and send notifications to your clients and team across multiple platforms.",
+};
 
 export default function Home() {
   return (
