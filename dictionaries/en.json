@@ -1,0 +1,69 @@
+{
+  "Name": "LMNEDATE",
+  "Title": "Streamline Your Communications with LMNEDATE",
+  "Subtitle": "Effortlessly manage and send notifications to your clients and team across multiple platforms.",
+  "Button": "Get Started",
+  "KeyFeatures": {
+    "Feature1": {
+      "Title": "Multi-Channel Notifications",
+      "Description": "Send messages via SMS, Telegram, WhatsApp, Viber, and Email."
+    },
+    "Feature2": {
+      "Title": "Customizable Templates",
+      "Description": "Create and save message templates for quick and consistent communication."
+    },
+    "Feature3": {
+      "Title": "Scheduled Delivery",
+      "Description": "Set specific dates and times for your messages to be sent automatically."
+    }
+  },
+  "HowItWorksTitle": "How It Works",
+  "HowItWorks": {
+    "Step1": {
+      "Title": "Create Template",
+      "Description": "Design your message template with personalized content."
+    },
+    "Step2": {
+      "Title": "Schedule",
+      "Description": "Choose the date and time for your message to be sent."
+    },
+    "Step3": {
+      "Title": "Notify",
+      "Description": "Your message is automatically sent to recipients via their preferred channel."
+    }
+  },
+  "Dashboard": {
+    "Title": "Comprehensive Dashboard",
+    "Description": "Get real-time insights into your communication campaigns with our powerful dashboard.",
+    "Details": {
+      "DeliveryStatus": "Delivery Status Reports",
+      "OpenRate": "Open Rate Analytics",
+      "ClickThroughRate": "Click-through Rates",
+      "CampaignPerformance": "Campaign Performance"
+    }
+  },
+  "PrivateDashboard": {
+    "Title": "Private Dashboard",
+    "Description": "Access your personalized dashboard to manage all your communication needs and view detailed reports."
+  },
+  "CTA": {
+    "Title": "Ready to Streamline Your Communications?",
+    "Description": "Join of businesses using LMNEDATE to improve their customer and team communications.",
+    "Placeholder": "Enter your email",
+    "Button": "Get Started",
+    "Toaster": {
+      "title": "Request Submitted",
+      "subtitle": "Your service connection request has been received. We will process it shortly."
+    }
+  },
+  "Footer": {
+    "Copyright": "© 2024 LMNEDATE. All rights reserved.",
+    "TermsOfService": "Terms of Service",
+    "PrivacyPolicy": "Privacy",
+    "Links": {
+      "Features": "Features",
+      "About": "About",
+      "Contact": "Contact"
+    }
+  }
+}

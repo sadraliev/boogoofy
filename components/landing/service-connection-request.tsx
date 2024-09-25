@@ -5,7 +5,22 @@ import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
 
-const ServiceConnectionRequest = () => {
+type ServiceConnectionRequestProps = {
+  vocabulary: {
+    title: string;
+    description: string;
+    button: string;
+    placeholder: string;
+    toaster: {
+      title: string;
+      subtitle: string;
+    };
+  };
+};
+
+const ServiceConnectionRequest = ({
+  vocabulary,
+}: ServiceConnectionRequestProps) => {
   const [email, setEmail] = useState("");
   const { toast } = useToast();
 
@@ -17,9 +32,8 @@ const ServiceConnectionRequest = () => {
     }
 
     toast({
-      title: "Request Submitted",
-      description:
-        "Your service connection request has been received. We will process it shortly.",
+      title: vocabulary.toaster.title,
+      description: vocabulary.toaster.subtitle,
     });
 
     setEmail("");
@@ -30,18 +44,17 @@ const ServiceConnectionRequest = () => {
       <div className="flex flex-col items-center space-y-4 text-center">
         <div className="space-y-2">
           <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-gray-900">
-            Ready to Streamline Your Communications?
+            {vocabulary.title}
           </h2>
           <p className="mx-auto max-w-[600px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-            Join thousands of businesses using LMNEDATE to improve their
-            customer and team communications.
+            {vocabulary.description}
           </p>
         </div>
         <div className="w-full max-w-sm space-y-2 rounded-lg p-3 bg-white shadow-md transition-all duration-200 hover:shadow-lg hover:-translate-y-1">
           <form className="flex space-x-2" onSubmit={handleEmailSubmit}>
             <Input
               className="max-w-lg flex-1"
-              placeholder="Enter your email"
+              placeholder={vocabulary.placeholder}
               type="email"
               name="name"
               value={email}
@@ -51,13 +64,10 @@ const ServiceConnectionRequest = () => {
               type="submit"
               className="bg-gray-900 text-white hover:bg-gray-800"
             >
-              Get Started
+              {vocabulary.button}
             </Button>
           </form>
         </div>
-        <p className="text-xs text-gray-500">
-          Start your free trial. No credit card required.
-        </p>
       </div>
     </div>
   );
