@@ -8,11 +8,20 @@ import LocaleSwitcher from "@/components/landing/locale-switcher";
 import { getDictionary } from "@/dictionaries/get-dictionary";
 import { Locale } from "@/i18n.config";
 
-export const metadata: Metadata = {
-  title: "LMNEDATE - Streamline Your Communications",
-  description:
-    "Effortlessly manage and send notifications to your clients and team across multiple platforms.",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: {
+    lang: Locale;
+  };
+}): Promise<Metadata> {
+  const dictionary = await getDictionary(params.lang);
+
+  return {
+    title: dictionary.Title,
+    description: dictionary.Subtitle,
+  };
+}
 
 export default async function Home({
   params: { lang },

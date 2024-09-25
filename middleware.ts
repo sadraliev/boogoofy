@@ -6,14 +6,10 @@ import { i18n, Locale } from "./i18n.config";
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
-  console.log(pathname);
-
   // Check if there is any supported locale in the pathname
   const pathnameIsMissingLocale = i18n.locales.every(
     (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
   );
-
-  console.log("pathnameIsMissingLocale", pathnameIsMissingLocale);
 
   // Redirect if there is no locale
   if (pathnameIsMissingLocale) {
