@@ -1,6 +1,8 @@
 import { Montserrat } from "next/font/google";
 import { Toaster } from "@/components/ui/toaster";
 import { i18n, Locale } from "@/i18n.config";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/react";
 import "@/app/globals.css";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
@@ -21,6 +23,8 @@ export default function Root({
       <body className={`${montserrat.className}} antialiased`}>
         {children}
         <Toaster />
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
