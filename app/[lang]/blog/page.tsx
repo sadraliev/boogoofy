@@ -54,12 +54,6 @@ export default function Blog({}: Props) {
             feedback from real customers, enabling users to discover the best
             specialists based on reliable experiences.”
           </strong>
-          <br />
-          <i>
-            LMNEDATE stands for the Kyrgyz phrase "эл эмне дейт," which means
-            "what will people say." This emphasis on public opinion helps users
-            trust the reviews and find the best specialists.
-          </i>
         </p>
 
         <p className="text-gray-600 mb-4">
@@ -103,7 +97,15 @@ export default function Blog({}: Props) {
         <h2 className="text-xl font-bold mb-4">
           Frequently Asked Questions (FAQ)
         </h2>
-
+        <div className="mb-4">
+          <h3 className="font-semibold">What does the name LMNEDATE mean?</h3>
+          <p>
+            LMNEDATE is pronounced as: L (/ɛl/) - M (/ɛm/) - NE (/neɪ/) - DATE
+            (/deɪt/). In Kyrgyz, it translates to "Эл эмне дейт" (El emne deit),
+            which means "What do people say?". This emphasis on public opinion
+            helps users trust the reviews and find the best specialists.
+          </p>
+        </div>
         <div className="mb-4">
           <h3 className="font-semibold">
             How does LMNEDATE verify customer reviews?
