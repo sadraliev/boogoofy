@@ -205,7 +205,7 @@ export function BookingDashboard() {
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-2">
-              <PhoneInput />
+              <PhoneInput phone={phoneNumber} onPhone={setPhoneNumber} />
             </div>
             <div className="space-y-2">
               <Label>Communication Methods</Label>

@@ -19,6 +19,7 @@ import {
   removeLeadingZero,
 } from "./mask";
 import { compose } from "@/lib/utils";
+import { FC } from "react";
 
 const countryCodes = [
   { code: "+996", country: "Kyrgyz Republic", flag: "🇰🇬", mask: "000 000 000" },
@@ -26,9 +27,14 @@ const countryCodes = [
 const mobilePhonePattern = new RegExp(
   "^(\\+996\\s?)?(22[0-9]|50[0-9]|55[0-9]|70[0-9]|75[0-9]|77[0-9]|880|990|995|996|997|998)\\s?\\d{3}\\s?\\d{3}$"
 );
-function PhoneInput() {
+
+type PhoneInput = {
+  phone: string;
+  onPhone: (input: string) => void;
+};
+
+const PhoneInput: FC<PhoneInput> = ({ phone, onPhone }) => {
   const [countryCode, setCountryCode] = useState(prependCountryCode());
-  const [phone, setPhone] = useState("");
   const [isInvalidPhoneNumber, setIsInvalidPhoneNumber] = useState(false);
 
   const selectedCountry = countryCodes.find((c) => c.code === countryCode);
@@ -40,7 +46,7 @@ function PhoneInput() {
 
     const formattedNumber = compose(
       (formattedNumber: string) => {
-        setPhone(formattedNumber);
+        onPhone(formattedNumber);
         return formattedNumber;
       },
       applyPhoneMask,
@@ -95,7 +101,7 @@ function PhoneInput() {
       </p>
     </div>
   );
-}
+};
 
 PhoneInput.displayName = "PhoneInput";
 
