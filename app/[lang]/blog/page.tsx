@@ -1,8 +1,6 @@
 import React from "react";
 
-type Props = {};
-
-export default function Blog({}: Props) {
+export default function Blog({}) {
   return (
     <div className="bg-gray-100 font-sans text-gray-800">
       <div className="max-w-3xl mx-auto p-6 bg-white shadow-md rounded-lg mt-10">
@@ -25,13 +23,13 @@ export default function Blog({}: Props) {
         </p>
 
         <p className="text-gray-600 mb-4">
-          Finding a qualified professional can often feel like a gamble.
+          {`Finding a qualified professional can often feel like a gamble.
           Consumers frequently encounter unreliable ratings and misleading
           reviews on existing platforms. Whether you’re looking for a plumber, a
           personal trainer, or a graphic designer, it’s essential to know that
           the feedback you read comes from real clients who have actually paid
           for the services. With LMNEDATE, users no longer need to sift through
-          questionable reviews to find the best professionals.
+          questionable reviews to find the best professionals.`}
         </p>
 
         <p className="text-gray-600 mb-4">
@@ -100,10 +98,10 @@ export default function Blog({}: Props) {
         <div className="mb-4">
           <h3 className="font-semibold">What does the name LMNEDATE mean?</h3>
           <p>
-            LMNEDATE is pronounced as: L (/ɛl/) - M (/ɛm/) - NE (/neɪ/) - DATE
+            {`LMNEDATE is pronounced as: L (/ɛl/) - M (/ɛm/) - NE (/neɪ/) - DATE
             (/deɪt/). In Kyrgyz, it translates to "Эл эмне дейт" (El emne deit),
             which means "What do people say?". This emphasis on public opinion
-            helps users trust the reviews and find the best specialists.
+            helps users trust the reviews and find the best specialists.`}
           </p>
         </div>
         <div className="mb-4">
